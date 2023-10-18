@@ -1,52 +1,58 @@
 import React from "react";
+import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const AddProduct = () => {
+const UpdateProducts = () => {
 
-  const handleAddProduct = e => {
+    const product = useLoaderData();
+    const {_id,brandName, modelName, year, type, price, rating, details, photo} = product;
 
-    e.preventDefault();
+    const handleUpdateProduct = e => {
 
-    const form = e.target;
+        e.preventDefault();
+    
+        const form = e.target;
+    
+        const brandName = form.brand.value;
+        const modelName = form.model.value;
+        const year = form.year.value;
+        const type = form.type.value;
+        const price = form.price.value;
+        const rating = form.rating.value;
+        const details = form.details.value;
+        const photo = form.photo.value;
+    
+        const newProduct = {brandName, modelName, year, type, price, rating, details, photo};
+        console.log(newProduct);
 
-    const brandName = form.brand.value;
-    const modelName = form.model.value;
-    const year = form.year.value;
-    const type = form.type.value;
-    const price = form.price.value;
-    const rating = form.rating.value;
-    const details = form.details.value;
-    const photo = form.photo.value;
 
-    const newProduct = {brandName, modelName, year, type, price, rating, details, photo};
-    console.log(newProduct);
-
-   
-    fetch('http://localhost:5000/products', {
-        method:'POST',
-        headers: {
-            'content-type':'application/json'
-        },
-        body:JSON.stringify(newProduct)
-    })
-    .then(res => res.json())
-    .then(data => {
-        if(data.insertedId){
-            // console.log(data);
-            Swal.fire({
-                title: 'Success!',
-                text: 'Product added Successfully',
-                icon: 'success',
-                confirmButtonText: 'OK'
-              })
-        }
-    })
-  }
+    
+       
+        fetch(`http://localhost:5000/products/${_id}`, {
+            method:'PUT',
+            headers: {
+                'content-type':'application/json'
+            },
+            body:JSON.stringify(newProduct)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.modifiedCount > 0){
+                // console.log(data);
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Product updated Successfully',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                  })
+            }
+        })
+      }
 
   return (
     <div className="bg-[#F4F3F0] p-24">
-      <h2 className="text-3xl text-center font-extrabold mb-6">Add Products</h2>
-      <form onSubmit={handleAddProduct}>
+      <h2 className="text-3xl text-center font-extrabold mb-6">Update Products</h2>
+      <form onSubmit={handleUpdateProduct}>
         {/* Form Name and Quantity Row */}
         <div className="md:flex mb-2">
           <div className="form-control md:w-1/2">
@@ -57,6 +63,7 @@ const AddProduct = () => {
               <input
                 type="text"
                 name="brand"
+                defaultValue={brandName}
                 placeholder="Coffee Name"
                 className="input input-bordered w-full"
               />
@@ -70,6 +77,7 @@ const AddProduct = () => {
               <input
                 type="text"
                 name="model"
+                defaultValue={modelName}
                 placeholder="Available Quantity"
                 className="input input-bordered w-full"
               />
@@ -86,6 +94,7 @@ const AddProduct = () => {
               <input
                 type="text"
                 name="year"
+                defaultValue={year}
                 placeholder="Coffee Name"
                 className="input input-bordered w-full"
               />
@@ -99,6 +108,7 @@ const AddProduct = () => {
               <input
                 type="text"
                 name="type"
+                defaultValue={type}
                 placeholder="Available Quantity"
                 className="input input-bordered w-full"
               />
@@ -115,6 +125,7 @@ const AddProduct = () => {
               <input
                 type="text"
                 name="price"
+                defaultValue={price}
                 placeholder="Coffee Name"
                 className="input input-bordered w-full"
               />
@@ -128,6 +139,7 @@ const AddProduct = () => {
               <input
                 type="text"
                 name="rating"
+                defaultValue={rating}
                 placeholder="Available Quantity"
                 className="input input-bordered w-full"
               />
@@ -145,6 +157,7 @@ const AddProduct = () => {
               <input
                 type="text"
                 name="photo"
+                defaultValue={photo}
                 placeholder="Coffee Name"
                 className="input input-bordered w-full"
               />
@@ -158,6 +171,7 @@ const AddProduct = () => {
               <input
                 type="text"
                 name="details"
+                defaultValue={details}
                 placeholder="Available Quantity"
                 className="input input-bordered w-full"
               />
@@ -166,12 +180,11 @@ const AddProduct = () => {
         </div>
         <input
           type="submit"
-          value="Add Product"
+          value="Update Product"
           className="btn btn-block bg-slate-700 text-white"
         />
       </form>
     </div>
   );
 };
-
-export default AddProduct;
+export default UpdateProducts;
