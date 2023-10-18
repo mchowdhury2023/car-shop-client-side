@@ -15,6 +15,7 @@ import PrivateRoute from "./authentication/PrivateRoute.jsx";
 import AuthProvider from "./authentication/Authprovider.jsx";
 import UpdateProducts from "./pages/UpdateProducts/UpdateProducts.jsx";
 import BrandProducts from "./pages/BrandProducts/BrandProducts.jsx";
+import { CartProvider } from "./authentication/CartProvider.jsx";
 
 const router = createBrowserRouter([
   {
@@ -74,7 +75,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
-      <RouterProvider router={router} />
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
     </AuthProvider>
   </React.StrictMode>
 );
