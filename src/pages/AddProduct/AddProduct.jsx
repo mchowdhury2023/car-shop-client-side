@@ -57,7 +57,7 @@ const AddProduct = () => {
               <input
                 type="text"
                 name="brand"
-                placeholder="Coffee Name"
+                placeholder="Brand Name"
                 className="input input-bordered w-full"
               />
             </label>
@@ -70,7 +70,7 @@ const AddProduct = () => {
               <input
                 type="text"
                 name="model"
-                placeholder="Available Quantity"
+                placeholder="Model Name"
                 className="input input-bordered w-full"
               />
             </label>
@@ -86,7 +86,7 @@ const AddProduct = () => {
               <input
                 type="text"
                 name="year"
-                placeholder="Coffee Name"
+                placeholder="Year"
                 className="input input-bordered w-full"
               />
             </label>
@@ -99,7 +99,7 @@ const AddProduct = () => {
               <input
                 type="text"
                 name="type"
-                placeholder="Available Quantity"
+                placeholder="Type"
                 className="input input-bordered w-full"
               />
             </label>
@@ -115,7 +115,7 @@ const AddProduct = () => {
               <input
                 type="text"
                 name="price"
-                placeholder="Coffee Name"
+                placeholder="Price"
                 className="input input-bordered w-full"
               />
             </label>
@@ -128,7 +128,7 @@ const AddProduct = () => {
               <input
                 type="text"
                 name="rating"
-                placeholder="Available Quantity"
+                placeholder="Rating"
                 className="input input-bordered w-full"
               />
             </label>
@@ -145,7 +145,7 @@ const AddProduct = () => {
               <input
                 type="text"
                 name="photo"
-                placeholder="Coffee Name"
+                placeholder="Phone URL"
                 className="input input-bordered w-full"
               />
             </label>
@@ -158,7 +158,7 @@ const AddProduct = () => {
               <input
                 type="text"
                 name="details"
-                placeholder="Available Quantity"
+                placeholder="Details"
                 className="input input-bordered w-full"
               />
             </label>

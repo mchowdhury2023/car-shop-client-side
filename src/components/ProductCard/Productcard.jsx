@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const Productcard = ({ product }) => {
+const Productcard = ({ product, products, setProducts }) => {
   const {
     _id,
     brandName,
@@ -26,7 +26,7 @@ const Productcard = ({ product }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/coffee/${_id}`, {
+        fetch(`http://localhost:5000/products/${_id}`, {
             method:"DELETE"
         })
           .then((res) => res.json())
@@ -34,10 +34,10 @@ const Productcard = ({ product }) => {
             if (data.deletedCount > 0) {
               Swal.fire(
                 "Deleted!", 
-                "Your coffee has been deleted.", 
+                "Your product has been deleted.", 
                 "success");
-                const remaining = coffees.filter(cof => cof._id !== _id);
-                setCoffees(remaining);
+                const remaining = products.filter(prod => prod._id !== _id);
+                setProducts(remaining);
             }
           });
       }
@@ -45,7 +45,7 @@ const Productcard = ({ product }) => {
   };
 
   return (
-    <div className="p-4 w-full ml-10">
+    <div className="p-4 w-full ml-10 mr-10">
     <div className="bg-white border border-gray-200 p-4 rounded-lg shadow hover:shadow-md transition-shadow duration-300">
       <img
         className="w-full h-48 object-cover mb-4 rounded"
