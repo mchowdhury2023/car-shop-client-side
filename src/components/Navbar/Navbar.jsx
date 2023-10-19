@@ -51,7 +51,7 @@ const Navbar = () => {
             </div>
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar mr-2">
               <div className="w-10 rounded-full">
-                <img src="" alt="User Avatar" />
+                <img src={user?.photoURL} alt="User Avatar" />
               </div>
             </label>
             <button onClick={handleSignOut} className="btn bg-red-400 text-white px-4 py-2 rounded block text-center ml-2">Sign Out</button>

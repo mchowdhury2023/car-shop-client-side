@@ -1,7 +1,10 @@
 import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../authentication/AuthProvider';
 import { ToastContainer, toast } from 'react-toastify';
+import { AuthContext } from '../../authentication/Authprovider';
+import firebase from 'firebase/app';
+import 'firebase/auth'; 
+
 
 
 const Register = () => {
@@ -9,7 +12,7 @@ const Register = () => {
     const [registerError, setRegisterError] = useState('');
     const [regSuccess, setRegSuccess] = useState('');
 
-    const {createUser} = useContext(AuthContext);
+    const {user, createUser} = useContext(AuthContext);
     const navigate = useNavigate();
 
      // State for form fields
@@ -71,17 +74,29 @@ const Register = () => {
 
     // If validations pass, continue with user creation
     createUser(email, password)
-        .then((result) => {
-            const successMsg = 'User created successfully';
-            setRegSuccess(successMsg);
-            toast.success(successMsg);
+    .then((result) => {
+      console.log(result.user);
+      
+      return firebase.auth().currentUser.updateProfile({
+        displayName: "User Name",
+        photoURL: "path/to/photo.jpg"
+    });
+    })
+    .then(() => {
+      
+      const successMsg = 'User created successfully';
+      setRegSuccess(successMsg);
+      toast.success(successMsg);
 
-            navigate('/login');
-        })
-        .catch((error) => {
-            setRegisterError(error.message);
-            toast.error(error.message);
-        });
+      clearFormFields();
+      navigate('/login');
+    })
+    .catch((error) => {
+      setRegisterError(error.message);
+      toast.error(error.message);
+    });
+
+        
 };
 
       return (

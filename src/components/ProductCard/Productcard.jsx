@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { useCart } from "../../authentication/CartProvider";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Productcard = ({ product, products, setProducts }) => {
-  const { addToCart } = useCart();
   const {
     _id,
     brandName,
@@ -47,15 +47,30 @@ const Productcard = ({ product, products, setProducts }) => {
     });
   };
 
-  const handleAddToCart = () => {
-    addToCart(product);
+  const handleRating = (rating) => {
+    let stars = [];
 
-    Swal.fire({
-      title: "Success!",
-      text: "Product added to cart successfully",
-      icon: "success",
-      confirmButtonText: "OK",
-    });
+    for (let i = 1; i <= 5; i++) {
+      if (rating >= i) {
+        stars.push(
+          <FontAwesomeIcon key={i} icon={faStar} className="text-yellow-500" />
+        );
+      } else if (rating + 0.5 >= i) {
+        stars.push(
+          <FontAwesomeIcon
+            key={i}
+            icon={faStarHalfAlt}
+            className="text-yellow-500"
+          />
+        );
+      } else {
+        stars.push(
+          <FontAwesomeIcon key={i} icon={faStar} className="text-gray-300" />
+        );
+      }
+    }
+
+    return stars;
   };
 
   return (
@@ -77,18 +92,21 @@ const Productcard = ({ product, products, setProducts }) => {
           <li className="truncate">Year: {year}</li>
           <li className="truncate">Type: {type}</li>
           <li className="truncate">Price: ${price}</li>
-          <li className="truncate">Rating: {rating}</li>
+          <li className="truncate">
+            Rating:
+            <span className="ml-2">{handleRating(rating)}</span>
+          </li>
         </ul>
         <div className="flex justify-between items-center mt-auto">
-        <Link to={`/productDetails/${_id}`} className="btn btn-primary">
-                Details
-              </Link>
+          <Link to={`/productDetails/${_id}`} className="btn btn-primary">
+            Details
+          </Link>
 
           <div className="space-x-2">
             <Link to={`/updateProduct/${_id}`}>
               <button className="btn btn-success">Edit</button>
             </Link>
-        
+
             <button onClick={() => handleDlete(_id)} className="btn btn-danger">
               Delete
             </button>

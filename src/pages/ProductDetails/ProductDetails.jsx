@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useCart } from "../../authentication/CartProvider";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
 
 const ProductDetails = () => {
   const product = useLoaderData();
@@ -12,6 +14,7 @@ const ProductDetails = () => {
       brandName: product.brandName,
       modelName: product.modelName,
       price: product.price,
+      rating:product.rating
     };
 
     fetch("http://localhost:5000/cart", {
@@ -43,6 +46,32 @@ const ProductDetails = () => {
           confirmButtonText: "OK",
         });
       });
+  };
+
+  const handleRating = (rating) => {
+    let stars = [];
+
+    for (let i = 1; i <= 5; i++) {
+      if (rating >= i) {
+        stars.push(
+          <FontAwesomeIcon key={i} icon={faStar} className="text-yellow-500" />
+        );
+      } else if (rating + 0.5 >= i) {
+        stars.push(
+          <FontAwesomeIcon
+            key={i}
+            icon={faStarHalfAlt}
+            className="text-yellow-500"
+          />
+        );
+      } else {
+        stars.push(
+          <FontAwesomeIcon key={i} icon={faStar} className="text-gray-300" />
+        );
+      }
+    }
+
+    return stars;
   };
 
   return (
@@ -79,7 +108,7 @@ const ProductDetails = () => {
             </tr>
             <tr className="border-b">
               <td className="py-2 px-4 font-medium">Rating:</td>
-              <td className="py-2 px-4">{product.rating}</td>
+              <td className="py-2 px-4">{handleRating(product.rating)}</td>
             </tr>
           </tbody>
         </table>
