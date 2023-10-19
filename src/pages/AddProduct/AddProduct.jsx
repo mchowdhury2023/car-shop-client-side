@@ -19,7 +19,7 @@ const AddProduct = () => {
     const photo = form.photo.value;
 
     const newProduct = {brandName, modelName, year, type, price, rating, details, photo};
-    console.log(newProduct);
+    //console.log(newProduct);
 
    
     fetch('http://localhost:5000/products', {
