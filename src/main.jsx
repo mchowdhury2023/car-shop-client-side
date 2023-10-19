@@ -16,6 +16,8 @@ import AuthProvider from "./authentication/Authprovider.jsx";
 import UpdateProducts from "./pages/UpdateProducts/UpdateProducts.jsx";
 import BrandProducts from "./pages/BrandProducts/BrandProducts.jsx";
 import { CartProvider } from "./authentication/CartProvider.jsx";
+import TestimonialForm from "./pages/Testimonial/TestimonialForm.jsx";
+import ProductDetails from "./pages/ProductDetails/ProductDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +65,20 @@ const router = createBrowserRouter([
             <Mycart></Mycart>
           </PrivateRoute>
         ),
+      },
+      {
+        path:"/feedback",
+        element: (
+          <PrivateRoute>
+            <TestimonialForm></TestimonialForm>
+          </PrivateRoute>
+        )
+      },
+      {
+        path: "/productDetails/:id",
+        element: <ProductDetails></ProductDetails>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/products/${params.id}`),
       },
       {
         path: "*",

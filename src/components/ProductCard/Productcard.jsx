@@ -49,46 +49,46 @@ const Productcard = ({ product, products, setProducts }) => {
 
   const handleAddToCart = () => {
     addToCart(product);
-  
+
     Swal.fire({
-      title: 'Success!',
-      text: 'Product added to cart successfully',
-      icon: 'success',
-      confirmButtonText: 'OK'
+      title: "Success!",
+      text: "Product added to cart successfully",
+      icon: "success",
+      confirmButtonText: "OK",
     });
   };
 
   return (
     <div className="p-4 w-full ml-10 mr-10">
-      <div className="bg-white border border-gray-200 p-4 rounded-lg shadow hover:shadow-md transition-shadow duration-300">
+      <div className="bg-white border border-gray-200 p-4 rounded-lg shadow hover:shadow-md transition-shadow duration-300 h-auto md:h-[600px] overflow-hidden">
         <img
           className="w-full h-48 object-cover mb-4 rounded"
           src={photo}
           alt={modelName}
         />
-        <h2 className="text-xl font-semibold mb-2">Brand: {brandName}</h2>
-        <h3 className="text-lg mb-2">Model: {modelName}</h3>
-        <p className="text-gray-600 mb-4">{details}</p>
+        <h2 className="text-xl font-semibold mb-2 truncate">
+          Brand: {brandName}
+        </h2>
+        <h3 className="text-lg mb-2 truncate">Model: {modelName}</h3>
+        <p className="text-gray-600 mb-4 overflow-ellipsis overflow-hidden h-20">
+          {details}
+        </p>
         <ul className="mb-4 space-y-2">
-          <li>Year: {year}</li>
-          <li>Type: {type}</li>
-          <li>Price: ${price}</li>
-          <li>Rating: {rating}</li>
+          <li className="truncate">Year: {year}</li>
+          <li className="truncate">Type: {type}</li>
+          <li className="truncate">Price: ${price}</li>
+          <li className="truncate">Rating: {rating}</li>
         </ul>
-        <div className="flex justify-end items-center">
-          <div>
-            <button
-              onClick={handleAddToCart}
-              className="btn btn-primary"
-            >
-              Add To Cart
-            </button>
-          </div>
+        <div className="flex justify-between items-center mt-auto">
+        <Link to={`/productDetails/${_id}`} className="btn btn-primary">
+                Details
+              </Link>
 
           <div className="space-x-2">
             <Link to={`/updateProduct/${_id}`}>
               <button className="btn btn-success">Edit</button>
             </Link>
+        
             <button onClick={() => handleDlete(_id)} className="btn btn-danger">
               Delete
             </button>
