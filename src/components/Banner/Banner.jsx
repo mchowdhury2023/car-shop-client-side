@@ -12,15 +12,20 @@ const Banner = ({ brands }) => {
 
   return (
     <div className="relative h-[500px]">
-      <div className="absolute w-full h-full bg-opacity-40 bg-black flex items-center justify-center">
-        <input
-          type="text"
-          placeholder="Search for brands..."
-          onChange={(e) => setSearch(e.target.value)}
-          className="p-2 rounded bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
-        />
+      {/* This is the overlay with the search bar */}
+      <div className="absolute z-10 w-full h-full flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-white text-4xl mb-4">Explore Our Exclusive Car Collection</h2>
+          <input
+            type="text"
+            placeholder="Search your dream car..."
+            onChange={(e) => setSearch(e.target.value)}
+            className="p-2 rounded bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 opacity-60"
+          />
+        </div>
       </div>
-
+  
+      {/* These are the images */}
       {brands.map((brand, index) => (
         <img
           key={brand._id}
@@ -31,6 +36,7 @@ const Banner = ({ brands }) => {
       ))}
     </div>
   );
+  
 }
 
 export default Banner;
