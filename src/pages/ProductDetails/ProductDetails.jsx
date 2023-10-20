@@ -17,7 +17,7 @@ const ProductDetails = () => {
       rating:product.rating
     };
 
-    fetch("https://brand-shop-server-nupp88ewz-mahamudul-chowdhurys-projects.vercel.app/cart", {
+    fetch("https://brand-shop-server-gztp20rll-mahamudul-chowdhurys-projects.vercel.app/cart", {
       method: "POST",
       headers: {
         "content-type": "application/json",

@@ -22,7 +22,7 @@ const AddProduct = () => {
     //console.log(newProduct);
 
    
-    fetch('https://brand-shop-server-nupp88ewz-mahamudul-chowdhurys-projects.vercel.app/products', {
+    fetch('https://brand-shop-server-gztp20rll-mahamudul-chowdhurys-projects.vercel.app/products', {
         method:'POST',
         headers: {
             'content-type':'application/json'

@@ -18,7 +18,7 @@ const TestimonialForm = () => {
         console.log(newFeedback);
     
        
-        fetch('https://brand-shop-server-nupp88ewz-mahamudul-chowdhurys-projects.vercel.app/testimonials', {
+        fetch('https://brand-shop-server-gztp20rll-mahamudul-chowdhurys-projects.vercel.app/testimonials', {
             method:'POST',
             headers: {
                 'content-type':'application/json'

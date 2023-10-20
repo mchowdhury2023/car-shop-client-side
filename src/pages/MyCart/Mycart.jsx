@@ -7,7 +7,7 @@ const Mycart = () => {
   const { cart } = useCart();
 
   useEffect(() => {
-    fetch('https://brand-shop-server-nupp88ewz-mahamudul-chowdhurys-projects.vercel.app/cart')
+    fetch('https://brand-shop-server-gztp20rll-mahamudul-chowdhurys-projects.vercel.app/cart')
       .then(res => res.json())
       .then(data => setCartItems(data))
       .catch(err => {
@@ -21,7 +21,7 @@ const Mycart = () => {
   }, []);
 
   const handleDelete = (id) => {
-    fetch(`https://brand-shop-server-nupp88ewz-mahamudul-chowdhurys-projects.vercel.app/cart/${id}`, {
+    fetch(`https://brand-shop-server-gztp20rll-mahamudul-chowdhurys-projects.vercel.app/cart/${id}`, {
       method: 'DELETE'
     })
     .then(res => res.json())
