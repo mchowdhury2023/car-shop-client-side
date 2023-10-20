@@ -2,9 +2,8 @@ import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { AuthContext } from '../../authentication/Authprovider';
-import firebase from 'firebase/app';
-import 'firebase/auth'; 
-
+import { updateProfile } from "firebase/auth";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Register = () => {
@@ -12,13 +11,13 @@ const Register = () => {
     const [registerError, setRegisterError] = useState('');
     const [regSuccess, setRegSuccess] = useState('');
 
-    const {user, createUser} = useContext(AuthContext);
+    const {user, createUser, updateUser} = useContext(AuthContext);
     const navigate = useNavigate();
 
      // State for form fields
      const [formData, setFormData] = useState({
       name: '',
-      photo: '',
+      photoURL: '',
       email: '',
       password: ''
   });
@@ -31,7 +30,7 @@ const Register = () => {
   const clearFormFields = () => {
       setFormData({
           name: '',
-          photo: '',
+          photoURL: '',
           email: '',
           password: ''
       });
@@ -40,7 +39,7 @@ const Register = () => {
   const handleRegister = (e) => {
     e.preventDefault();
     
-    const { name, photo, email, password } = formData;
+    const { name, photoURL, email, password } = formData;
 
     setRegisterError('');
     setRegSuccess('');
@@ -48,17 +47,17 @@ const Register = () => {
     if (password.length < 6) {
         const errorMsg = "Password must be at least 6 characters long";
         setRegisterError(errorMsg);
-        alert(errorMsg);
-       // toast.error(errorMsg);
-        //clearFormFields();
+        
+       toast.error(errorMsg);
+        clearFormFields();
         return;
     }
 
     if (!/[A-Z]/.test(password)) {
         const errorMsg = "Password must contain at least one uppercase letter";
         setRegisterError(errorMsg);
-        alert(errorMsg);
-       // toast.error(errorMsg);
+       
+       toast.error(errorMsg);
         clearFormFields();
         return;
     }
@@ -66,36 +65,47 @@ const Register = () => {
     if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(password)) {
         const errorMsg = "Password must contain at least one special character";
         setRegisterError(errorMsg);
-        alert(errorMsg);
-        //toast.error(errorMsg);
+        
+        toast.error(errorMsg);
         clearFormFields();
         return;
     }
 
+    console.log("Form Data:", formData);
+
+
     // If validations pass, continue with user creation
     createUser(email, password)
     .then((result) => {
-      console.log(result.user);
+      console.log("Firebase User:", result.user);
+
       
-      return firebase.auth().currentUser.updateProfile({
-        displayName: "User Name",
-        photoURL: "path/to/photo.jpg"
+      // Use the values provided by the user for the displayName and photoURL
+      return updateProfile(result.user, {
+        displayName: formData.name,
+        photoURL: formData.photoURL
     });
-    })
-    .then(() => {
-      
+  })
+  .then(() => {
+
+    updateUser({
+      ...user, 
+      displayName: name, 
+      photoURL: photoURL
+  }); 
       const successMsg = 'User created successfully';
       setRegSuccess(successMsg);
       toast.success(successMsg);
-
+  
       clearFormFields();
-      navigate('/login');
-    })
-    .catch((error) => {
+      navigate('/');
+  })
+  .catch((error) => {
+      console.log("Error:", error);
       setRegisterError(error.message);
       toast.error(error.message);
-    });
-
+  });
+    
         
 };
 
@@ -125,7 +135,7 @@ const Register = () => {
                 <input
                   type="text"
                   placeholder="photo url"
-                  name="photo"
+                  name="photoURL"
                   className="input input-bordered"
                   required
                   value={formData.photo}
@@ -169,14 +179,15 @@ const Register = () => {
                 <button className="btn btn-primary">Register</button>
               </div>
             </form>
-        
-        <ToastContainer></ToastContainer>
+            <ToastContainer></ToastContainer>
+      
             <p className="text-center mt-4">
               Already Have an Account?
               <Link className="text-blue-600 font-bold ml-2" to="/login">
                 Login
               </Link>
             </p>
+            
           
         </div>
       );

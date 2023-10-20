@@ -4,6 +4,7 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import app from "../../firebase/firebase.config";
 import { getAuth } from "firebase/auth";
 import { AuthContext } from "../../authentication/Authprovider";
+import { ToastContainer, toast } from "react-toastify";
 
 const Login = () => {
   const auth = getAuth(app);
@@ -28,7 +29,12 @@ const Login = () => {
         navigate(location?.state ? location.state : "/");
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error.message);
+        if (error.code === "auth/invalid-login-credentials") {
+          toast.error("Invalid login credentials. Please check your email and password.");
+        } else {
+          toast.error(error.message);
+        }
       });
   };
 
@@ -95,6 +101,7 @@ const Login = () => {
           </Link>
         </p>
       </div>
+      <ToastContainer />
     </div>
   );
 };

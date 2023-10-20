@@ -18,6 +18,7 @@ import BrandProducts from "./pages/BrandProducts/BrandProducts.jsx";
 import { CartProvider } from "./authentication/CartProvider.jsx";
 import TestimonialForm from "./pages/Testimonial/TestimonialForm.jsx";
 import ProductDetails from "./pages/ProductDetails/ProductDetails.jsx";
+import 'react-toastify/dist/ReactToastify.css';
 
 const router = createBrowserRouter([
   {

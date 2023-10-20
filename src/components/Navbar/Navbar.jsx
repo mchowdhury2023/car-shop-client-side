@@ -2,12 +2,14 @@ import { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 //import userDefaultPicture from "../../assets/user.png";
 
-//import Logo from '../../assets/images/logo.jpg';
+import Logo from '../../assets/logo/carlogo1.png'
 import { AuthContext } from "../../authentication/Authprovider";
 
+
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const {  user, logOut } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false); // To control the mobile dropdown menu
+
 
   const handleSignOut = () => {
         logOut().then().catch();
@@ -28,10 +30,11 @@ const Navbar = () => {
     </div>
   );
 
+
   return (
     <div className="navbar bg-slate-300 h-32 flex items-center justify-between px-6 mb-4">
       <div className="flex items-center mr-40">
-        <img src="" alt="Logo" className="h-24 w-24 lg:w-48 rounded-full" />
+        <img src={Logo} alt="Logo" className="h-24 w-24 lg:w-48 rounded-md" />
       </div>
 
       <button onClick={() => setMenuOpen(!menuOpen)} className="lg:hidden">
