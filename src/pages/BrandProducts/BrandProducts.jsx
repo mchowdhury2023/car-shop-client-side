@@ -1,19 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Productcard from "../../components/ProductCard/Productcard";
 import { useLoaderData } from "react-router-dom";
 import { Carousel } from "react-bootstrap";
 
 const BrandProducts = () => {
   const loadedProducts = useLoaderData();
-  const [products, setProducts] = useState(loadedProducts)
+  const [products, setProducts] = useState([]);
 
-  // Check if products are available or not
+  useEffect(() => {
+    const filteredProducts = loadedProducts.filter(
+      (product) =>
+        product.modelName && product.year && product.type && product.price
+    );
+    setProducts(filteredProducts);
+  }, [loadedProducts]);
+
+  // Check if filtered products are available or not
   const areProductsAvailable = products.length > 0;
 
   return (
     <div className="">
       <h2 className="text-2xl bg-slate-200 font-semibold rounded-md mb-4 text-center">
-       Available {areProductsAvailable ? products[0].brandName : "Fetching..."} Cars
+        {areProductsAvailable ?" Available " + products[0].brandName + " Cars" : "Fetching..."}
+        
       </h2>
 
       {areProductsAvailable ? (
@@ -37,13 +46,18 @@ const BrandProducts = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mr-16">
             {products.map((product) => (
-              <Productcard key={product._id} product={product} products={products} setProducts={setProducts}></Productcard>
+              <Productcard
+                key={product._id}
+                product={product}
+                products={products}
+                setProducts={setProducts}
+              ></Productcard>
             ))}
           </div>
         </>
       ) : (
         <div className="text-center text-xl mt-4">
-          Cars are not available right now...
+          No products are available for this brand.
         </div>
       )}
     </div>
@@ -51,4 +65,3 @@ const BrandProducts = () => {
 };
 
 export default BrandProducts;
-

@@ -18,7 +18,7 @@ import BrandProducts from "./pages/BrandProducts/BrandProducts.jsx";
 import { CartProvider } from "./authentication/CartProvider.jsx";
 import TestimonialForm from "./pages/Testimonial/TestimonialForm.jsx";
 import ProductDetails from "./pages/ProductDetails/ProductDetails.jsx";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter([
   {
@@ -32,7 +32,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/products/byBrand/:brandName",
-        element: <BrandProducts></BrandProducts>,
+        element: (
+          <PrivateRoute>
+            <BrandProducts></BrandProducts>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/products/byBrand/${params.brandName}`),
       },
@@ -68,12 +72,12 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path:"/feedback",
+        path: "/feedback",
         element: (
           <PrivateRoute>
             <TestimonialForm></TestimonialForm>
           </PrivateRoute>
-        )
+        ),
       },
       {
         path: "/productDetails/:id",
