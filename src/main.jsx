@@ -19,6 +19,7 @@ import { CartProvider } from "./authentication/CartProvider.jsx";
 import TestimonialForm from "./pages/Testimonial/TestimonialForm.jsx";
 import ProductDetails from "./pages/ProductDetails/ProductDetails.jsx";
 import "react-toastify/dist/ReactToastify.css";
+import { ThemeProvider } from "./authentication/ThemeState/ThemeContext.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,7 +29,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        // loader: () => fetch("http://localhost:5000/products"),
       },
       {
         path: "/products/byBrand/:brandName",
@@ -59,7 +59,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/updateProduct/:id",
-        element: <UpdateProducts></UpdateProducts>,
+        element: (
+          <PrivateRoute>
+            <UpdateProducts></UpdateProducts>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/products/${params.id}`),
       },
@@ -81,7 +85,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/productDetails/:id",
-        element: <ProductDetails></ProductDetails>,
+        element: (
+          <PrivateRoute>
+            <ProductDetails></ProductDetails>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/products/${params.id}`),
       },
@@ -97,7 +105,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
       <CartProvider>
+        <ThemeProvider>
         <RouterProvider router={router} />
+        </ThemeProvider>
       </CartProvider>
     </AuthProvider>
   </React.StrictMode>

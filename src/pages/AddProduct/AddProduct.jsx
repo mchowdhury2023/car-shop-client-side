@@ -51,6 +51,7 @@ const AddProduct = () => {
         <div className="md:flex mb-2">
           <div className="form-control md:w-1/2">
             <label className="label">
+              
               <span className="label-text">Brand Name</span>
             </label>
             <label className="input-group">
@@ -59,6 +60,7 @@ const AddProduct = () => {
                 name="brand"
                 placeholder="Brand Name"
                 className="input input-bordered w-full"
+                required
               />
             </label>
           </div>

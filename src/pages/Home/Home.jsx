@@ -1,12 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Banner from "../../components/Banner/Banner";
 import BrandCard from "../../components/BrandCard/BrandCard";
 import { Carousel } from "react-bootstrap";
+import {
+  ThemeContext,
+  useTheme,
+} from "../../authentication/ThemeState/ThemeContext";
+
 
 const Home = () => {
   const [brands, setBrands] = useState([]);
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
+
+  //   const { theme, setTheme } = useContext(ThemeContext);
+  const { theme, setTheme } = useTheme();
+
+  const toggleTheme = () => {
+    if (theme === "light") {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+  };
 
   useEffect(() => {
     fetch("http://localhost:5000/brands")
@@ -28,15 +44,18 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div className={theme === "light" ? "" : "bg-gray-900 text-white"}>
+      <button onClick={toggleTheme} className="top-4 right-4 md:top-8 md:right-8 btn transform ">
+        {theme === "light" ? "Dark 🌙" : "Light ☀️"}
+      </button>
       <Banner brands={brands}></Banner>
 
       <div className="mt-10">
-        <h2 className="text-2xl bg-slate-200 font-semibold rounded-md mb-4 text-center">
-          Brands:
+        <h2 className="text-2xl font-semibold rounded-md mb-4 text-center">
+          Let's Check Out Our Available Brands
         </h2>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 lg:m-10">
         {brands.map((brand) => (
           <BrandCard
             key={brand._id}
@@ -68,22 +87,32 @@ const Home = () => {
         </Carousel>
       </div>
       <div>
-        {/* Customer Testimonials Section */}
-        <section className="py-10 bg-gray-100 m-10">
+       
+        <section
+          className={`p-10  ${
+            theme === "light" ? "bg-gray-100" : "bg-gray-900"
+          }`}
+        >
           <h2
-            className="text-2xl font-semibold mb-4 text-center"
+            className={`text-2xl font-semibold mb-4 text-center ${
+              theme === "light" ? "text-black" : "text-white"
+            }`}
             data-aos="fade-up"
           >
             What our customers say
           </h2>
           <div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 m-4"
+            className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 m-4 ${
+              theme === "light" ? "text-black" : "text-white"
+            }`}
             data-aos="fade-up"
           >
             {testimonials.map((testimonial) => (
               <div
                 key={testimonial.name}
-                className="bg-white shadow-lg p-6 rounded-lg"
+                className={`shadow-lg p-6 rounded-lg ${
+                  theme === "light" ? "bg-white" : "bg-gray-800"
+                }`}
               >
                 <p className="mt-4 text-center">"{testimonial.review}"</p>
                 <h4 className="mt-2 text-end">{testimonial.name}</h4>
