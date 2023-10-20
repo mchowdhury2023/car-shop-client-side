@@ -25,20 +25,20 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:5000/brands")
+    fetch("https://brand-shop-server-nupp88ewz-mahamudul-chowdhurys-projects.vercel.app/brands")
       .then((res) => res.json())
       .then((data) => setBrands(data));
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5000/products?limit=5")
+    fetch("https://brand-shop-server-nupp88ewz-mahamudul-chowdhurys-projects.vercel.app/products?limit=5")
       .then((res) => res.json())
       .then((data) => setFeaturedProducts(data));
   }, []);
 
   //get all testimonial
   useEffect(() => {
-    fetch("http://localhost:5000/testimonials")
+    fetch("https://brand-shop-server-nupp88ewz-mahamudul-chowdhurys-projects.vercel.app/testimonials")
       .then((res) => res.json())
       .then((data) => setTestimonials(data));
   }, []);

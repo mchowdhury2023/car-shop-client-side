@@ -38,7 +38,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/products/byBrand/${params.brandName}`),
+          fetch(`https://brand-shop-server-nupp88ewz-mahamudul-chowdhurys-projects.vercel.app/products/byBrand/${params.brandName}`),
       },
 
       {
@@ -65,7 +65,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/products/${params.id}`),
+          fetch(`https://brand-shop-server-nupp88ewz-mahamudul-chowdhurys-projects.vercel.app/products/${params.id}`),
       },
       {
         path: "/mycart",
@@ -91,7 +91,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/products/${params.id}`),
+          fetch(`https://brand-shop-server-nupp88ewz-mahamudul-chowdhurys-projects.vercel.app/products/${params.id}`),
       },
       {
         path: "*",

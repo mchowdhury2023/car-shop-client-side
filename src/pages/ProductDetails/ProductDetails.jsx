@@ -17,7 +17,7 @@ const ProductDetails = () => {
       rating:product.rating
     };
 
-    fetch("http://localhost:5000/cart", {
+    fetch("https://brand-shop-server-nupp88ewz-mahamudul-chowdhurys-projects.vercel.app/cart", {
       method: "POST",
       headers: {
         "content-type": "application/json",
