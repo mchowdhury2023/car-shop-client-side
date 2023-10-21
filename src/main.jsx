@@ -74,6 +74,7 @@ const router = createBrowserRouter([
             <Mycart></Mycart>
           </PrivateRoute>
         ),
+        loader:() => fetch("https://brand-shop-server-gztp20rll-mahamudul-chowdhurys-projects.vercel.app/cart")
       },
       {
         path: "/feedback",

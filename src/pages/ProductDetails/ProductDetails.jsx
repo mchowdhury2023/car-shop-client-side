@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useCart } from "../../authentication/CartProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
+import { AuthContext } from "../../authentication/Authprovider";
 
 const ProductDetails = () => {
   const product = useLoaderData();
   const { addToCart } = useCart();
+  const { user} = useContext(AuthContext);
 
   const handleAddToCart = () => {
     const cartItem = {
       brandName: product.brandName,
       modelName: product.modelName,
+      email:user.email,
       price: product.price,
       rating:product.rating
     };

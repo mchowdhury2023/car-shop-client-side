@@ -1,15 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Swal from 'sweetalert2';
 import { useCart } from '../../authentication/CartProvider';
+import { useLoaderData } from 'react-router-dom';
+import { AuthContext } from '../../authentication/Authprovider';
 
 const Mycart = () => {
   const [cartItems, setCartItems] = useState([]);
   const { cart } = useCart();
 
+  const { user } = useContext(AuthContext);
+ 
+
   useEffect(() => {
     fetch('https://brand-shop-server-gztp20rll-mahamudul-chowdhurys-projects.vercel.app/cart')
       .then(res => res.json())
-      .then(data => setCartItems(data))
+      .then(data => {
+        console.log(data)
+        const userCartItems = data.filter(item => item.email === user.email);
+        setCartItems(userCartItems);
+      })
       .catch(err => {
         Swal.fire({
           title: 'Error!',
@@ -18,7 +27,7 @@ const Mycart = () => {
           confirmButtonText: 'OK'
         });
       });
-  }, []);
+  }, [user.email]);
 
   const handleDelete = (id) => {
     fetch(`https://brand-shop-server-gztp20rll-mahamudul-chowdhurys-projects.vercel.app/cart/${id}`, {
