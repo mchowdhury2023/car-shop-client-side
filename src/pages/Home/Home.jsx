@@ -6,6 +6,9 @@ import {
   ThemeContext,
   useTheme,
 } from "../../authentication/ThemeState/ThemeContext";
+import 'aos/dist/aos.css'; // importing the css styles
+import AOS from 'aos';
+
 
 
 const Home = () => {
@@ -43,29 +46,36 @@ const Home = () => {
       .then((data) => setTestimonials(data));
   }, []);
 
-  return (
-    <div className={theme === "light" ? "" : "bg-gray-900 text-white"}>
-      <button onClick={toggleTheme} className="top-4 right-4 md:top-8 md:right-8 btn transform ">
-        {theme === "light" ? "Dark 🌙" : "Light ☀️"}
-      </button>
-      <Banner brands={brands}></Banner>
 
-      <div className="mt-10">
-        <h2 className="text-2xl font-semibold rounded-md mb-4 text-center">
-          Let's Check Out Our Available Brands
-        </h2>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 lg:m-10">
+useEffect(() => {
+    AOS.init({
+      duration: 1000
+    });
+}, []);
+
+
+  return (
+    <div className={`flex flex-col min-h-screen ${theme === "light" ? "" : "bg-gray-900 text-white"}`}>
+      <main className="flex-grow">
+        <button onClick={toggleTheme} className="fixed top-0 right-4 z-50 p-2 rounded-full bg-white/30">
+          {theme === "light" ? "Dark 🌙" : "Light ☀️"}
+        </button>
+  
+        <Banner brands={brands} />
+  
+        <section className="mt-10 px-4">
+    <h2 className="text-3xl font-semibold text-center">Available Brands</h2>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
         {brands.map((brand) => (
-          <BrandCard
-            key={brand._id}
-            brandName={brand._id}
-            photo={brand.photo}
-          ></BrandCard>
+            <div data-aos="fade-up" key={brand._id}>
+                <BrandCard brandName={brand._id} photo={brand.photo} />
+            </div>
         ))}
-      </div>
-      <div>
-        <h2 className="text-5xl text-center mt-10">Our Top Picks For You</h2>
+    </div>
+</section>
+
+<div>
+        <h2 className="text-4xl font-semibold text-center mt-10">Our Top Picks For You</h2>
       </div>
       <div>
         <Carousel className="mt-8" pause={false}>
@@ -86,43 +96,47 @@ const Home = () => {
           ))}
         </Carousel>
       </div>
+  
       <div>
        
-        <section
-          className={`p-10  ${
-            theme === "light" ? "bg-gray-100" : "bg-gray-900"
-          }`}
-        >
-          <h2
-            className={`text-2xl font-semibold mb-4 text-center ${
-              theme === "light" ? "text-black" : "text-white"
-            }`}
-            data-aos="fade-up"
-          >
-            What our customers say
-          </h2>
-          <div
-            className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 m-4 ${
-              theme === "light" ? "text-black" : "text-white"
-            }`}
-            data-aos="fade-up"
-          >
-            {testimonials.map((testimonial) => (
-              <div
-                key={testimonial.name}
-                className={`shadow-lg p-6 rounded-lg ${
-                  theme === "light" ? "bg-white" : "bg-gray-800"
-                }`}
-              >
-                <p className="mt-4 text-center">"{testimonial.review}"</p>
-                <h4 className="mt-2 text-end">{testimonial.name}</h4>
-              </div>
-            ))}
-          </div>
-        </section>
-      </div>
+       <section
+         className={`p-10  ${
+           theme === "light" ? "bg-gray-100" : "bg-gray-900"
+         }`}
+       >
+         <h2
+           className={`text-2xl font-semibold mb-4 text-center ${
+             theme === "light" ? "text-black" : "text-white"
+           }`}
+           data-aos="fade-up"
+         >
+           What our customers say
+         </h2>
+         <div
+           className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 m-4 ${
+             theme === "light" ? "text-black" : "text-white"
+           }`}
+           data-aos="fade-up"
+         >
+           {testimonials.map((testimonial) => (
+             <div
+               key={testimonial.name}
+               className={`shadow-2xl p-6 rounded-lg ${
+                 theme === "light" ? "bg-blue-50" : "bg-gray-800"
+               }`}
+             >
+               <p className="mt-4 text-center italic">"{testimonial.review}"</p>
+               <h4 className="mt-2 text-end">{testimonial.name}</h4>
+             </div>
+           ))}
+         </div>
+       </section>
+     </div>
+      </main>
+      
     </div>
   );
+  
 };
 
 export default Home;

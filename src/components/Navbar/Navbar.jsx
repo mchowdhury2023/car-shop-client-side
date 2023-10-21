@@ -35,10 +35,11 @@ const Navbar = () => {
     </div>
   );
 
+
   return (
     <div
       className={`navbar h-32 flex items-center justify-between px-6 ${
-        theme === "dark" ? "bg-gray-900" : "bg-slate-300"
+        theme === "dark" ? "bg-gray-900" : "bg-gray-100"
       }`}
     >
       <div className="flex items-center mr-40">
@@ -58,15 +59,15 @@ const Navbar = () => {
         ☰
       </button>
 
-      <div className="navbar-center hidden lg:block">
-        <ul
-          className={`menu menu-horizontal px-1 space-x-4 ${
-            theme === "dark" ? "text-white" : "text-black"
-          }`}
-        >
-          {navLinks}
-        </ul>
-      </div>
+      <div className="navbar-center hidden lg:block ml-20">
+  <ul
+    className={`menu menu-horizontal space-x-6 ${
+      theme === "dark" ? "text-white" : "text-black"
+    }`}
+  >
+    {navLinks}
+  </ul>
+</div>
 
       <div className="navbar-end flex items-center">
         {user ? (
@@ -90,7 +91,7 @@ const Navbar = () => {
             </label>
             <button
               onClick={handleSignOut}
-              className="btn bg-red-400 text-white px-3 py-1 md:px-4 md:py-2 rounded block text-center ml-1 md:ml-2 lg:ml-4"
+              className="btn bg-slate-400 text-white px-3 py-1 md:px-4 md:py-2 rounded block text-center ml-1 md:ml-2 lg:ml-4"
             >
               Sign Out
             </button>

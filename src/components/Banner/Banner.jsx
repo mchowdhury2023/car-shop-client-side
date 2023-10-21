@@ -18,7 +18,7 @@ const Banner = ({ brands }) => {
     {/* This is the overlay with the search bar */}
     <div className="absolute z-10 w-full h-full flex items-center justify-center">
       <div className="text-center">
-        <h2 className="text-4xl mb-4">Explore Our Exclusive Car Collection</h2>
+        <h2 className="text-4xl font-extralight text-orange-100 mb-4">Explore Our Exclusive Car Collection</h2>
         <input
           type="text"
           placeholder="Search your dream car..."

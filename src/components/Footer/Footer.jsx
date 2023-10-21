@@ -6,9 +6,9 @@ import { useTheme } from "../../authentication/ThemeState/ThemeContext";
 const Footer = () => {
   const { theme } = useTheme();
   return (
-<div className={`h-24 ${theme === 'dark' ? 'bg-gray-900 text-white' : ''}`}>
+<div className={`h-24 ${theme === 'dark' ? 'bg-gray-900 text-white' : ''} `}>
   <footer className="footer p-4 md:p-10 bg-neutral text-neutral-content rounded-md">
-    <aside className="flex flex-col md:flex-row items-center justify-between">
+    <aside className="flex flex-col md:flex-row items-center justify-start mr-10 ml-10">
       <img src={logo} alt="logo" className="w-16 h-16 md:w-24 md:h-24 rounded-3xl" />
       <p className="text-sm mt-2 md:text-md md:mt-4">
         <span className="mt-4 text-lg font-semibold italic">
@@ -20,7 +20,8 @@ const Footer = () => {
     </aside>
     <nav className="mt-4 md:mt-0">
       <header className="footer-title">Social</header>
-      <div className="flex flex-wrap justify-start space-y-2 md:space-y-0 space-x-2 md:grid md:grid-flow-col md:gap-4">
+      <div className="flex space-y-2 md:space-y-0 space-x-2 md:gap-4">
+        <div className="flex gap-4">
         <a className="w-6 h-6 md:w-auto md:h-auto">
         <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -54,13 +55,19 @@ const Footer = () => {
                 <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path>
               </svg>
         </a>
-        <Link to="/feedback" className="p-1 md:p-2 bg-blue-600 text-white rounded">Give Feedback</Link>
+        </div>
+        <div className="ml-auto">
+          <Link to="/feedback" className="p-1 md:p-2 bg-blue-600 text-white rounded">Give Feedback</Link>
+        </div>
       </div>
     </nav>
   </footer>
 </div>
 
+
   );
+
+  
 };
 
 export default Footer;
